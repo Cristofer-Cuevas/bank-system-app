@@ -1,6 +1,6 @@
 // ---------- Google Sign In Post ---------- //
 export const signInPostGoogleIdToken = (id_token) => {
-  return fetch("http://localhost:3001/google-auth", {
+  return fetch("https://pern-bank-system-app.herokuapp.com/google-auth", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -13,7 +13,7 @@ export const signInPostGoogleIdToken = (id_token) => {
 
 // ---------- Sign in post ---------- //
 export const signInPost = (credentials) => {
-  return fetch("http://localhost:3001/signin", {
+  return fetch("https://pern-bank-system-app.herokuapp.com/signin", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -27,7 +27,7 @@ export const signInPost = (credentials) => {
 
 // ---------- Sign up post ---------- //
 export const signUpPost = (credentials) => {
-  return fetch("http://localhost:3001/signup", {
+  return fetch("https://pern-bank-system-app.herokuapp.com/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export const signUpPost = (credentials) => {
 // ---------- Google Sign up Post ---------- //
 
 export const signUpPostGoogleIdToken = (id_token) => {
-  return fetch("http://localhost:3001/google/signup", {
+  return fetch("https://pern-bank-system-app.herokuapp.com/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -71,7 +71,7 @@ export const transferPost = (id, amount) => {
     }
   }
 
-  return fetch("http://localhost:3001/transfer", {
+  return fetch("https://pern-bank-system-app.herokuapp.com/transfer", {
     method: "POST",
     headers: new Headers({
       "Content-Type": "application/json",

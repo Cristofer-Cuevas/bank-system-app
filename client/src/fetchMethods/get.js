@@ -1,5 +1,5 @@
 export const verify = (params) => {
-  return fetch(`http://localhost:3001/verify/${params}`);
+  return fetch(`https://pern-bank-system-app.herokuapp.com/verify/${params}`);
 };
 
 export const getUsers = () => {
@@ -16,7 +16,7 @@ export const getUsers = () => {
     }
   }
 
-  return fetch("http://localhost:3001/users", {
+  return fetch("https://pern-bank-system-app.herokuapp.com/users", {
     method: "GET",
     headers: new Headers({
       "Content-Type": "application/json",
@@ -39,7 +39,7 @@ export const getAuth = () => {
     }
   }
 
-  return fetch("http://localhost:3001/get-auth", {
+  return fetch("https://pern-bank-system-app.herokuapp.com/get-auth", {
     headers: new Headers({
       "Content-Type": "application/json",
       Authorization: cookieValue,
