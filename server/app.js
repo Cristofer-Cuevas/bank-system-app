@@ -2,20 +2,24 @@ import express from "express";
 import cors from "cors";
 import passport from "passport";
 import pool from "./dbConnecion/connection.js";
+import userAuthRoutes from "./routes/user-auth-routes.js";
+import generalRoutes from "./routes/general-routes.js";
+import transporter from "./lib/emailerUtils.js";
+import "./auth/auth.js";
 
 const app = express();
-// app.use(passport.initialize());
 
-// app.use(cors);
+const PORT = 3001 || process.env.PORT;
+
+app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get("/", async (req, res) => {
-  console.log("hola");
-  const bank = await pool.query("SELECT * FROM todo");
-  console.log(bank.rows);
-  res.send(`<h1>hy<h1>`);
-});
+app.use(passport.initialize());
 
-app.listen(3001, () => {
-  console.log("Server has started running on port 3001");
+app.use(generalRoutes);
+app.use(userAuthRoutes);
+
+app.listen(PORT, () => {
+  console.log("Server running");
 });
