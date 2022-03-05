@@ -11,6 +11,6 @@ This project was built utilizing the PERN-Stack and other technologies.
 
 ## Screenshots
 
-![Registration page GIF]('./screenshots/Hnet-image.gif')
+![Registration page GIF](screenshots/Hnet-image.gif)
 
-![Bank System page]('./screenshots/bank-system-pagescreenshot.png)
+![Bank System page](screenshots/bank-system-pagescreenshot.png)
