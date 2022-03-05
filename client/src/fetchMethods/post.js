@@ -1,6 +1,6 @@
 // ---------- Google Sign In Post ---------- //
 export const signInPostGoogleIdToken = (id_token) => {
-  return fetch("https://pern-bank-system-app.herokuapp.com/google-auth", {
+  return fetch("https://pern-bank-system-app.herokuapp.com/google/signin", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export const signUpPost = (credentials) => {
 // ---------- Google Sign up Post ---------- //
 
 export const signUpPostGoogleIdToken = (id_token) => {
-  return fetch("https://pern-bank-system-app.herokuapp.com/signup", {
+  return fetch("https://pern-bank-system-app.herokuapp.com/google/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
