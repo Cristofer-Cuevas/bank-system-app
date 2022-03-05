@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
 import { signUpPost, signInPost, signUpPostGoogleIdToken, signInPostGoogleIdToken } from "../fetchMethods/post";
 import { getAuth } from "../fetchMethods/get";
-import {} from "../fetchMethods/post";
 
 import ReactDOM from "react-dom";
 
@@ -46,15 +45,18 @@ const Signin = () => {
   // ---------- Sign In funcs ---------- //
   function onSignIn(googleUser) {
     let id_token = googleUser.getAuthResponse().id_token;
+    console.log("Sign in Google crendiantials sent to backend");
 
     signInPostGoogleIdToken(id_token)
       .then((res) => res.json())
       .then((res) => {
         if (res.token) {
           setCookie(res.token);
+          console.log("JWT set as a cookie");
         }
         if (res.isAuth) {
           navigate("/bank-system", { replace: true });
+          console.log("Redirected to: /bank-system");
         }
       });
   }
@@ -63,9 +65,11 @@ const Signin = () => {
     onSuccess: (res) => {
       if (res.token) {
         setCookie(res.token);
+        console.log("JWT set as a cookie");
       }
       if (res.isAuth) {
         navigate("/bank-system", { replace: true });
+        console.log("Redirected to: /bank-system");
       }
 
       if (res.hasToVerify) {
@@ -103,15 +107,18 @@ const Signin = () => {
   // ---------- Sign up funcs ---------- //
   function onSignUp(googleUser) {
     let id_token = googleUser.getAuthResponse().id_token;
+    console.log("Sign up Google crendentials sent to backend");
 
     signUpPostGoogleIdToken(id_token)
       .then((res) => res.json())
       .then((res) => {
         if (res.token) {
           setCookie(res.token);
+          console.log("JWT set as cookie");
         }
         if (res.isAuth) {
           navigate("/bank-system", { replace: true });
+          console.log("Redirected to: /bank-system");
         }
 
         if (res.userExist) {
