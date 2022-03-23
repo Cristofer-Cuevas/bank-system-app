@@ -66,14 +66,35 @@ const Section = styled.section`
     animation: reveal 20s ease;
   }
 
+  .successfulTransaction {
+    position: fixed;
+    width: 100%;
+    transform: translateY(-100%);
+    z-index: 20;
+    margin: 0;
+    padding: 1rem 0;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: center;
+    background-color: #0dbf31;
+  }
+
+  .showSuccessfulTransaction {
+    animation: reveal 5s ease;
+  }
+
   @keyframes reveal {
     0% {
       transform: translateY(-100%);
     }
-    5%,
+    15%,
     90% {
       transform: translateY(0);
     }
+  }
+
+  .showSuccessfulTransaction {
   }
 `;
 
