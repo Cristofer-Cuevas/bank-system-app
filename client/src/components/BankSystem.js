@@ -14,6 +14,7 @@ const BankSystem = () => {
   const [users, setUsers] = useState(null);
   const [requester, setRequester] = useState(null);
   const [transactions, setTransactions] = useState(null);
+  const successfulTransactionRef = useRef(null);
 
   useQuery("users", () => getUsers().then((res) => res.json()), {
     onSuccess: (res) => {
@@ -37,11 +38,19 @@ const BankSystem = () => {
     }, 1);
   };
 
+  const shouldShowSuccessfulTransaction = () => {
+    successfulTransactionRef.current.classList.remove("showSuccessfulTransaction");
+    setTimeout(() => {
+      successfulTransactionRef.current.classList.add("showSuccessfulTransaction");
+    }, 1);
+  };
+
   const postTransfer = async (id, amount) => {
     await transferPost(id, amount)
       .then((res) => res.json())
       .then((res) => {
         if (res.hasEnoughCredit === false || res.isTransferCompleted === false) {
+          shouldShowConditions();
           conditionsRef.current.classList.remove("showConditions");
           conditionsRef.current.classList.add("showConditions");
           console.log("Showing Conditions");
@@ -49,6 +58,7 @@ const BankSystem = () => {
 
         // ---------- Updating user credit after a new transaction ---------- //
         if (res.isTransferCompleted) {
+          shouldShowSuccessfulTransaction();
           setRequester((requester) => {
             return { name: requester.name, name_initials: requester.name_initials, credit: res.credit };
           });
@@ -66,6 +76,9 @@ const BankSystem = () => {
     <Section>
       <p ref={conditionsRef} className="conditions">
         Something went wrong. The number has to follow the next conditions: the number has to be integer or contain two decimal digits only, and it has to be a positive number. Make sure you have enough credit to make the transfer.
+      </p>
+      <p ref={successfulTransactionRef} className="successfulTransaction">
+        Transaction has been successful
       </p>
       <Header transactions={transactions} requester={requester}>
         {" "}
