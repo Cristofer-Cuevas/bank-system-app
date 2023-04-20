@@ -1,13 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Div from "../styles/SignIn.styles";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
-import { signUpPost, signInPost, signUpPostGoogleIdToken, signInPostGoogleIdToken } from "../fetchMethods/post";
+import { signUpPost, signInPost } from "../fetchMethods/post";
 import { getAuth } from "../fetchMethods/get";
-
-import ReactDOM from "react-dom";
-
-import { GoogleLogin } from "react-google-login";
 
 const setCookie = (token) => {
     const cookieExpires = new Date();
@@ -99,6 +95,7 @@ const Signin = () => {
             } else if (res.userExist) {
                 setFormState({ userExist: true });
             }
+            console.log(res);
         },
 
         refetchOnWindowsFucs: false,
