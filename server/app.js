@@ -9,7 +9,7 @@ import "./auth/auth.js";
 
 const app = express();
 
-const PORT = 3001 || process.env.PORT;
+const PORT = 3002 || process.env.PORT;
 
 app.use(cors());
 app.use(express.json());
@@ -21,5 +21,5 @@ app.use(generalRoutes);
 app.use(userAuthRoutes);
 
 app.listen(PORT, () => {
-  console.log("Server running");
+  console.log("Server running", PORT);
 });

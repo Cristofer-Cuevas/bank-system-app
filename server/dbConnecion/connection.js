@@ -1,14 +1,16 @@
 import pg from "pg";
+import dotenv from "dotenv";
+dotenv.config();
 
 const { Pool } = pg;
 
 const pool = new Pool({
-    connectionString: "postgres://christopher:i6QKzqGbT51beU7R5qj94aJfgqAS7JQn@dpg-ch0aae3h4hsukp11b350-a/banksystem",
-    user: "christopher",
-    password: "i6QKzqGbT51beU7R5qj94aJfgqAS7JQn",
-    host: "dpg-ch0aae3h4hsukp11b350-a",
-    database: "banksystem",
-    port: 5432,
+    connectionString: process.env.CONNECTION_STRING,
+    user: process.env.POSTGRESQL_USER,
+    password: process.env.POSTGRESQL_PASSWORD,
+    host: process.env.POSTGRESQL_HOST,
+    database: process.env.POSTGRESQL_DATABASE,
+    port: process.env.POSTGRESQL_PORT,
 });
 
 export default pool;
