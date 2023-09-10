@@ -14,4 +14,3 @@ root.render(
     </QueryClientProvider>
   </React.StrictMode>
 );
-console.log('hello')
