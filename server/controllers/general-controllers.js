@@ -48,7 +48,8 @@ generalControllers.transferPost = async (req, res) => {
                         day: "numeric",
                     });
 
-                    const { rows: bill } = await pool.query("INSERT INTO transactions VALUES ($1, $2, $3, $4, $5), ($6, $7, $3, $4, $8) RETURNING name, date, amount, increment ", [senderId, users[0].name, formattedDate, amount, false, recipientId, senderName, true]);
+                    const { rows: bill } = await pool.query("INSERT INTO transactions VALUES ($1, $2, $3, $4, $5)," +
+                        " ($6, $7, $3, $4, $8) RETURNING name, date, amount, increment ", [senderId, users[0].name, amount, formattedDate, false, recipientId, senderName, true]);
 
                     res.json({ hasEnoughCredit: true, isTransferCompleted: true, credit: sender[0].credit, transaction: bill[0] });
                     if (sender[0]) {

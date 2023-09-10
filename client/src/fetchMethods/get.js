@@ -1,5 +1,5 @@
 export const verify = (params) => {
-    return fetch(`https://bank-app-vhlm.onrender.com/verify/${params}`);
+    return fetch(`http://localhost:3002/verify/${params}`);
 };
 
 export const getUsers = () => {
@@ -16,7 +16,7 @@ export const getUsers = () => {
         }
     }
 
-    return fetch("https://bank-app-vhlm.onrender.com/users", {
+    return fetch("http://localhost:3002/users", {
         method: "GET",
         headers: new Headers({
             "Content-Type": "application/json",
@@ -39,7 +39,7 @@ export const getAuth = () => {
         }
     }
 
-    return fetch("https://bank-app-vhlm.onrender.com/get-auth", {
+    return fetch("http://localhost:3002/get-auth", {
         headers: new Headers({
             "Content-Type": "application/json",
             Authorization: cookieValue,

@@ -9,10 +9,6 @@ userAuthRoutes.post("/signin", userAuthControllers.logInPost);
 
 userAuthRoutes.post("/signup", userAuthControllers.signUpPost);
 
-userAuthRoutes.post("/google-auth", userAuthControllers.googleSignInPost);
-
-userAuthRoutes.post("/google/signup", userAuthControllers.googleSignUpPost);
-
 userAuthRoutes.get("/verify/:id", userAuthControllers.getVerificationId);
 
 userAuthRoutes.get("/get-auth", passport.authenticate("jwt", { session: false, failureRedirect: "/auth-failed" }), userAuthControllers.getAuth);

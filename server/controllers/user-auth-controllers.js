@@ -26,75 +26,6 @@ const getInitials = (name, lastName) => {
     return initials.toUpperCase();
 };
 
-// ---------- Google Sign In authentication ----------//
-userAuthControllers.googleSignInPost = async (req, res) => {
-    try {
-        const id_token = req.body.id_token;
-        const CLIENT_ID = process.env.OAUTH_GMAIL_CLIENTID;
-
-        const client = new OAuth2Client(CLIENT_ID);
-
-        const verify = async (id_token) => {
-            const ticket = await client.verifyIdToken({
-                idToken: id_token,
-                audience: CLIENT_ID,
-            });
-
-            const { email } = ticket.payload;
-
-            const rows = await user(email);
-
-            if (!rows[0]) {
-                res.json({ userExist: false });
-            } else {
-                const issuedToken = issueJwt(rows[0].id);
-                res.json({ isAuth: true, token: issuedToken.token });
-            }
-        };
-
-        verify(id_token).catch(console.error);
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-// ---------- Google Sign up authentication ----------//
-userAuthControllers.googleSignUpPost = async (req, res) => {
-    try {
-        const { id_token, CLIENT_ID } = req.body;
-
-        const client = new OAuth2Client(CLIENT_ID);
-
-        const verify = async (id_token) => {
-            const ticket = await client.verifyIdToken({
-                idToken: id_token,
-                audience: CLIENT_ID,
-            });
-
-            const { given_name, family_name, email } = ticket.payload;
-
-            const rows = await user(email);
-
-            if (rows[0]) {
-                res.json({ userExist: true });
-            } else {
-                // Getting name intitals //
-                const nameInitials = getInitials(given_name, family_name);
-
-                const { rows } = await pool.query("WITH data AS (INSERT INTO credits VALUES ($1, $2, $3, $4)) INSERT INTO users (id, name, email, isverified, last_name, name_initials ) VALUES($1, $2, $3, $5, $6, $7) RETURNING *", [uuidv4(), given_name, email, "500.00", true, family_name, nameInitials]);
-
-                if (rows[0]) {
-                    const issuedToken = issueJwt(rows[0].id);
-                    res.json({ isAuth: true, token: issuedToken.token });
-                }
-            }
-        };
-
-        verify(id_token).catch(console.error);
-    } catch (error) {
-        console.log(error);
-    }
-};
 
 // ---------- Sign In Authentication ----------//
 userAuthControllers.logInPost = async (req, res) => {
@@ -129,17 +60,21 @@ userAuthControllers.signUpPost = async (req, res) => {
         const { username, lastname, email, password } = req.body;
         const nameInitials = getInitials(username, lastname);
         const rows = await user(email);
+        console.log('it gets here')
+        console.log(rows);
 
         if (rows[0]) {
             res.json({ userExist: true });
         } else if (!rows[0]) {
             const generatedPassword = genPassword(password);
+            console.log(generatedPassword)
 
-            const { rows } = await pool.query("WITH data AS (INSERT INTO credits VALUES ($1, $2, $3, $4)) INSERT INTO users VALUES($1, $2, $3, $5, $6, $7, $8, $9) RETURNING *", [uuidv4(), username, email, "500.00", generatedPassword.salt, generatedPassword.hash, false, lastname, nameInitials]);
-
+            const { rows } = await pool.query("WITH data AS (INSERT INTO credits VALUES ($1, $2, $3, $4)) INSERT" +
+                " INTO users VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *", [uuidv4(), username, email, "500.00", generatedPassword.salt, generatedPassword.hash, false, lastname, nameInitials]);
+                    console.log(rows, 'line 142');
             if (rows[0]) {
                 let mailOptions = {
-                    from: "programmerxs07@gmail.com",
+                    from: "cristofercuevasperez72@gmail.com",
                     to: email,
                     subject: "Verify your account",
                     text: "Click the following link to verify your account",
@@ -149,6 +84,7 @@ userAuthControllers.signUpPost = async (req, res) => {
                 transporter.sendMail(mailOptions, (err, data) => {
                     if (err) {
                         res.json({ err: true });
+                        console.log(err, 'line 156')
                     } else {
                         res.json({ hasToVerify: true });
                     }
@@ -157,6 +93,7 @@ userAuthControllers.signUpPost = async (req, res) => {
         }
     } catch (error) {
         res.json({ err: true });
+        console.log(error)
     }
 };
 
