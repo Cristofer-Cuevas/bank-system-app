@@ -1,6 +1,6 @@
 // ---------- Sign in post ---------- //
 export const signInPost = (credentials) => {
-    return fetch("http://localhost:3002/signin", {
+    return fetch("https://bank-app-vhlm.onrender.com/signin", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -14,7 +14,7 @@ export const signInPost = (credentials) => {
 
 // ---------- Sign up post ---------- //
 export const signUpPost = (credentials) => {
-    return fetch("http://localhost:3002/signup", {
+    return fetch("https://bank-app-vhlm.onrender.com/signup", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export const transferPost = (id, amount) => {
         }
     }
 
-    return fetch("http://localhost:3002/transfer", {
+    return fetch("https://bank-app-vhlm.onrender.com/transfer", {
         method: "POST",
         headers: new Headers({
             "Content-Type": "application/json",
