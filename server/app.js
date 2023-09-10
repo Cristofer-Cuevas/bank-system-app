@@ -19,7 +19,6 @@ app.use(passport.initialize());
 
 app.use(generalRoutes);
 app.use(userAuthRoutes);
-// hello
 
 app.listen(PORT, () => {
   console.log("Server running");
