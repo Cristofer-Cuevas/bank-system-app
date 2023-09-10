@@ -9,7 +9,7 @@ import "./auth/auth.js";
 
 const app = express();
 
-const PORT = 3002 || process.env.PORT;
+const PORT = process.env.PORT || 3002;
 
 app.use(cors());
 app.use(express.json());
